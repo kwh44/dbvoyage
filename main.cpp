@@ -2,7 +2,7 @@
 // Created by kwh44 on 11/22/19.
 //
 #include <iostream>
-#include "parser.hpp"
+#include "dump_parser/parser.hpp"
 
 int main(int argv, char *argc[]) {
     std::string filename("../dumps/enwikivoyage-latest-pages-articles.xml");

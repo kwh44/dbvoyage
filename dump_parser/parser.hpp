@@ -8,8 +8,10 @@
 #include <string>
 #include "pugixml.hpp"
 
-class PageNode {
 
+using page_iterator_t=const char *;
+
+class PageNode {
 public:
     pugi::xml_document doc;
     bool parse_status;
@@ -20,9 +22,9 @@ public:
 
     static auto end() { return pugi::xml_node(); }
 
-    static auto get_page_title(pugi::xml_node &it) { return it.child_value("title"); }
+    static page_iterator_t get_page_title(pugi::xml_node &it) { return it.child_value("title"); }
 
-    static auto get_text(pugi::xml_node &it) { return it.child("revision").child_value("text"); }
+    static page_iterator_t get_text(pugi::xml_node &it) { return it.child("revision").child_value("text"); }
 };
 
 void operator++(pugi::xml_node &value) { value = value.next_sibling("page"); }
