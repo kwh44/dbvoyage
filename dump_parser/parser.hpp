@@ -25,6 +25,17 @@ public:
     static page_iterator_t get_page_title(pugi::xml_node &it) { return it.child_value("title"); }
 
     static page_iterator_t get_text(pugi::xml_node &it) { return it.child("revision").child_value("text"); }
+
+    static bool redirect_article(pugi::xml_node &it) { return std::string(PageNode::get_text(it), 9) == "#REDIRECT"; }
+
+    static bool na_article(pugi::xml_node &it) {
+        // method to determine non-travel-guide articles
+        auto title = std::string(PageNode::get_page_title(it), 11);
+        return title == "Wikivoyage:" || title.substr(0, 10) == "MediaWiki:" || title.substr(0, 9) == "Template:"
+               || title.substr(0, 5) == "File:" || title.substr(0, 9) == "Main Page" || title.substr(0, 7) == "Module:";
+
+    }
+
 };
 
 void operator++(pugi::xml_node &value) { value = value.next_sibling("page"); }

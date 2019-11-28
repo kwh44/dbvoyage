@@ -15,6 +15,7 @@ public:
 
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
+            if (PageNode::na_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
             std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
             std::string predicate("<http://www.w3.org/2000/01/rdf-schema#label>");

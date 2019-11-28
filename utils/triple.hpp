@@ -10,6 +10,7 @@
 #include <fstream>
 
 class Triple {
+
     using str=std::string;
 
     str subject;
