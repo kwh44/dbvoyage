@@ -32,12 +32,12 @@ public:
 };
 
 std::ofstream &operator<<(std::ofstream &output, const Triple &tr) {
-    output << tr.subject << " " << tr.predicate << " " << tr.object;
+    output << tr.subject << " " << tr.predicate << " " << tr.object << " ." << std::endl;
     return output;
 }
 
 std::ostream &operator<<(std::ostream &output, const Triple &tr) {
-    output << tr.subject << " " << tr.predicate << " " << tr.object;
+    output << tr.subject << " " << tr.predicate << " " << tr.object  << " ." << std::endl;
     return output;
 }
 

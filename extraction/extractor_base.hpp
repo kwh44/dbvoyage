@@ -11,27 +11,22 @@
 #include "../utils/triple.hpp"
 
 class Extractor {
-protected:
-    std::vector<Triple> statements;
-    PageNode &articles;
-public:
-    explicit Extractor(PageNode &pn) : articles(pn) {}
 
-    virtual void extract() = 0;
+protected:
+
+    std::vector<Triple> statements;
+    PageNode *articles = nullptr;
+
+public:
+
+    virtual void extract() {}
+
+    virtual void write_to_destination() {}
 
     void create_statement(std::string &subj, std::string &pred, std::string &obj) {
         statements.emplace_back(Triple(subj, pred, obj));
     }
 
-    void write_to_destination(std::string &&filename) {
-        // write all statements to file
-        // Step one: create file
-        std::ofstream file(filename);
-        for (const auto &v: statements) {
-            file << v;
-            file << std::endl;
-        }
-    }
 };
 
 #endif //DBVOYAGE_EXTRACTOR_BASE_HPP

@@ -8,8 +8,17 @@ set(CMAKE_BUILD_TYPE Release)
 
 find_package(pugixml REQUIRED)
 
-add_executable(main main.cpp dump_parser/parser.hpp extractors/extractor_base.hpp extractors/see_section_extractor.hpp
-        utils/triple.hpp extractors/abstract_article_extractor.hpp extractors/page_id_extractor.hpp
-        extractors/page_revision_extractor.hpp extractors/label_extractor.hpp extractors/page_link_extractor.hpp)
+find_package(Threads REQUIRED)
 
-target_link_libraries(main pugixml)
+set(extractors extraction/article_link_extractor.hpp extraction/title_extractor.hpp)
+
+
+add_executable(main
+        main.cpp
+        dump_parser/parser.hpp
+        utils/triple.hpp
+        extraction/extractor_base.hpp
+        ${extractors}
+        extraction/extraction_manager.hpp)
+
+target_link_libraries(main pugixml Threads::Threads)
