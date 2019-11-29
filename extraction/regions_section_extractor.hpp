@@ -28,7 +28,7 @@ public:
                 for (const auto &region: *regions) {
                     std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
                     std::string predicate("<https://dbvoyage.org/ontology/property/hasRegion>");
-                    std::string object("<https://dbvoyage.org/ontology/region/" + region + '>');
+                    std::string object("<https://dbvoyage.org/ontology/article/" + region + '>');
                     create_statement(subject, predicate, object);
                 }
                 ++page_text_itr;
