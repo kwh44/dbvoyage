@@ -13,7 +13,9 @@ find_package(Threads REQUIRED)
 set(extractors extraction/article_link_extractor.hpp
         extraction/title_extractor.hpp
         extraction/abstract_article_extractor.hpp
-        extraction/see_section_extractor.hpp)
+        extraction/see_section_extractor.hpp
+        extraction/regions_section_extractor.hpp
+        extraction/cities_section_extractor.hpp)
 
 
 add_executable(main

@@ -5,8 +5,6 @@
 #ifndef DBVOYAGE_SEE_SECTION_EXTRACTOR_HPP
 #define DBVOYAGE_SEE_SECTION_EXTRACTOR_HPP
 
-#include <map>
-#include "../dump_parser/parser.hpp"
 #include "extractor_base.hpp"
 #include "../utils/listing_parameters.hpp"
 
@@ -25,7 +23,6 @@ public:
             if (PageNode::redirect_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
             auto page_text_itr = PageNode::get_text(it);
-            std::map<std::string, std::string> see_key_value;
             while (see_tag_start_find(page_text_itr)) {
                 // page_text_itr was moved to the start of '* {{see' tag
                 auto see_tag_size = find_see_tag_size(page_text_itr);
