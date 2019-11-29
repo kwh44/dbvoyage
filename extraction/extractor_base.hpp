@@ -13,7 +13,7 @@
 class Extractor {
 
 protected:
-
+    std::string filename;
     std::vector<Triple> statements;
     PageNode *articles = nullptr;
 
@@ -21,7 +21,11 @@ public:
 
     virtual void extract() {}
 
-    virtual void write_to_destination() {}
+
+    void write_to_destination() {
+        std::ofstream destination(filename);
+        for (const auto &statement: statements) { destination << statement; }
+    }
 
     void create_statement(std::string &subj, std::string &pred, std::string &obj) {
         statements.emplace_back(Triple(subj, pred, obj));

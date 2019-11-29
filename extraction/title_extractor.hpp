@@ -11,7 +11,10 @@ class TitleExtractor : public Extractor {
 
 public:
 
-    explicit TitleExtractor(PageNode *pn) { articles = pn; }
+    explicit TitleExtractor(PageNode *pn) {
+        articles = pn;
+        filename = "labels_en.nt";
+    }
 
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
@@ -24,11 +27,6 @@ public:
         }
     }
 
-    void write_to_destination() override {
-        std::string filename("labels_en.nt");
-        std::ofstream destination(filename);
-        for (const auto &statement: statements) { destination << statement; }
-    }
 };
 
 #endif //DBVOYAGE_TITLE_EXTRACTOR_HPP

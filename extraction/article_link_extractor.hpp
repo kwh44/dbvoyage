@@ -8,10 +8,12 @@
 #include "extractor_base.hpp"
 
 class ArticleLinkExtractor : public Extractor {
-
 public:
 
-    explicit ArticleLinkExtractor(PageNode *pn) { articles = pn; }
+    explicit ArticleLinkExtractor(PageNode *pn) {
+        articles = pn;
+        filename = "wikivoyage_links_en.nt";
+    }
 
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
@@ -22,12 +24,6 @@ public:
             std::string object("<https://wikivoyage.org/wiki/" + page_title + ">");
             create_statement(subject, predicate, object);
         }
-    }
-
-    void write_to_destination() override {
-        std::string filename("wikivoyage_links_en.nt");
-        std::ofstream destination(filename);
-        for (const auto &statement: statements) { destination << statement; }
     }
 
 };

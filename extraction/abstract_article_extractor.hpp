@@ -13,7 +13,10 @@ class AbstractPageExtractor : public Extractor {
 public:
     // Extracts a short abstract (first paragraph, represented by using rdf-schema#comment)
 
-    explicit AbstractPageExtractor(PageNode *pn) { articles = pn; }
+    explicit AbstractPageExtractor(PageNode *pn)  {
+        articles = pn;
+        filename = "abstract_article_en.nt";
+    }
 
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
@@ -26,12 +29,6 @@ public:
             clean_abstract(object);
             create_statement(subject, predicate, object);
         }
-    }
-
-    void write_to_destination() override {
-        std::string filename("abstract_article_en.nt");
-        std::ofstream destination(filename);
-        for (const auto &statement: statements) { destination << statement; }
     }
 
 private:
