@@ -10,13 +10,17 @@ find_package(pugixml REQUIRED)
 
 find_package(Threads REQUIRED)
 
-set(extractors extraction/article_link_extractor.hpp extraction/title_extractor.hpp extraction/abstract_article_extractor.hpp)
+set(extractors extraction/article_link_extractor.hpp
+        extraction/title_extractor.hpp
+        extraction/abstract_article_extractor.hpp
+        extraction/see_section_extractor.hpp)
 
 
 add_executable(main
         main.cpp
         dump_parser/parser.hpp
         utils/triple.hpp
+        utils/listing_parameters.hpp
         extraction/extractor_base.hpp
         ${extractors}
         extraction/extraction_manager.hpp)

@@ -10,6 +10,7 @@
 #include "article_link_extractor.hpp"
 #include "title_extractor.hpp"
 #include "abstract_article_extractor.hpp"
+#include "see_section_extractor.hpp"
 
 class ExtractionManager {
     std::vector<std::shared_ptr<Extractor>> extractors;
@@ -19,6 +20,7 @@ public:
         extractors.emplace_back(std::make_shared<ArticleLinkExtractor>(page_node));
         extractors.emplace_back(std::make_shared<TitleExtractor>(page_node));
         extractors.emplace_back(std::make_shared<AbstractPageExtractor>(page_node));
+        extractors.emplace_back(std::make_shared<SeeSectionExtractor>(page_node));
     }
 
     void start() {
