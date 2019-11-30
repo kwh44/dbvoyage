@@ -13,7 +13,7 @@ class AbstractPageExtractor : public Extractor {
 public:
     // Extracts a short abstract (first paragraph, represented by using rdf-schema#comment)
 
-    explicit AbstractPageExtractor(PageNode *pn)  {
+    explicit AbstractPageExtractor(PageNode *pn) {
         articles = pn;
         filename = "abstract_article_en.nt";
     }
@@ -24,9 +24,13 @@ public:
             if (PageNode::na_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
             std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + '>');
-            std::string predicate(" <http://www.w3.org/2000/01/rdf-schema#comment>");
+            std::string predicate("<http://www.w3.org/2000/01/rdf-schema#comment>");
             std::string object('"' + get_abstract(PageNode::get_text(it)) + '"');
+            if (object.size() == 2) continue;
+            replace_url(subject, " ", "%20");
+            replace_url(predicate, " ", "%20");
             clean_abstract(object);
+            if (object.size() == 2) continue;
             create_statement(subject, predicate, object);
         }
     }
@@ -35,6 +39,8 @@ private:
     static std::string get_abstract(page_iterator_t start) {
         auto next = start;
         bool previous_newline = false;
+        // std::cout << "Found start\n";
+        // std::cout << std::string(start, 30) << std::endl;
         while (*next != '\0') {
             if (*next == '\n') {
                 if (previous_newline) { break; }
@@ -54,7 +60,7 @@ private:
             abstract.erase(p1, p2 - p1 + 3);
             p1 = abstract.find("{{");
         }
-        if (abstract[abstract.size() - 2] == '\n') { abstract.erase(abstract.size() - 2, 1); }
+        clean_object(abstract);
     }
 };
 

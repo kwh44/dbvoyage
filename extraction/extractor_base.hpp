@@ -9,7 +9,8 @@
 #include <fstream>
 #include "../dump_parser/parser.hpp"
 #include "../utils/triple.hpp"
-
+#include "../utils/url_format.hpp"
+#include "../utils/clean_object.hpp"
 class Extractor {
 
 protected:
@@ -26,6 +27,8 @@ public:
         std::ofstream destination(filename);
         for (const auto &statement: statements) { destination << statement; }
     }
+
+    auto &get_triples() { return statements; }
 
     void create_statement(std::string &subj, std::string &pred, std::string &obj) {
         statements.emplace_back(Triple(subj, pred, obj));

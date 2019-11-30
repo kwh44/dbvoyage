@@ -6,10 +6,13 @@
 #define DBVOYAGE_CITIES_SECTION_EXTRACTOR_HPP
 
 #include <memory>
+#include "../utils/listing_parameters.hpp"
 #include "../dump_parser/parser.hpp"
 #include "extractor_base.hpp"
 
 class CitiesSectionExtractor : public Extractor {
+
+    using cities_list=std::shared_ptr<std::vector<std::string>>;
 public:
     explicit CitiesSectionExtractor(PageNode *pn) {
         articles = pn;
@@ -34,7 +37,8 @@ public:
         }
     }
 
-    static std::shared_ptr<std::vector<std::string>> get_cities_list(page_iterator_t &itr) {
+private:
+    static cities_list get_cities_list(page_iterator_t &itr) {
         bool flag = start_find(itr, "==Cities==");
         if (flag == 0) return nullptr;
         size_t end = 0;
@@ -53,18 +57,6 @@ public:
             }
         }
         return list;
-    }
-
-    [[nodiscard]] static bool start_find(page_iterator_t &itr, std::string target) {
-        // move itr to end of target string
-        size_t i = 0;
-        while (*itr != '\0') {
-            if (*itr == target[i]) ++i;
-            else i = 0;
-            if (i == target.size()) { return true; }
-            ++itr;
-        }
-        return false;
     }
 };
 

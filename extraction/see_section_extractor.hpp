@@ -23,23 +23,46 @@ public:
             if (PageNode::redirect_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
             auto page_text_itr = PageNode::get_text(it);
-            while (see_tag_start_find(page_text_itr)) {
+            while (start_find(page_text_itr, "{{see")) {
                 // page_text_itr was moved to the start of '* {{see' tag
                 auto see_tag_size = find_see_tag_size(page_text_itr);
                 std::string attraction_name;
                 for (const auto &key: listing::keys) {
                     auto value = get_parameter_value(page_text_itr, see_tag_size, key);
+
+                    clean_value(value);
+                    if (value.empty() && key == "name") break;
                     if (value.empty()) continue;
                     std::string predicate;
                     if (key == "name") {
-                        attraction_name = "<https://dbvoyage.org/ontology/attraction/" + value + ">";
+                        attraction_name = "https://dbvoyage.org/ontology/attraction/" + value;
                         std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
                         predicate = "<https://dbvoyage.org/ontology/property/hasAttraction>";
+                        replace_url(attraction_name, " ", "%20");
+                        replace_url(attraction_name, "<", "$");
+                        replace_url(attraction_name, ">", "$");
+                        replace_url(attraction_name, "\\", "%20");
+                        attraction_name.insert(0, "<");
+                        attraction_name.push_back('>');
+                        replace_url(subject, " ", "%20");
                         create_statement(subject, predicate, attraction_name);
                         predicate = "<https://dbvoyage.org/ontology/property/locatedAt>";
                         create_statement(attraction_name, predicate, subject);
                     }
                     predicate = "<https://dbvoyage.org/ontology/property/" + key + ">";
+                    if (key == "url") {
+                        while (value[value.size() - 1] == ' ') value.erase(value.size() - 1, 1);
+                        replace_url(value, " ", "%20");
+                        replace_url(value, "\\", "/");
+                        replace_url(value, "<", "$");
+                        replace_url(value, ">", "$");
+                        value.insert(0, "\"");
+                        value.push_back('"');
+                    } else {
+                        value.insert(0, "\"");
+                        replace_url(value, "\n", "%20");
+                        value.push_back('"');
+                    }
                     create_statement(attraction_name, predicate, value);
                 }
                 ++page_text_itr;
@@ -48,22 +71,15 @@ public:
     }
 
 private:
-    static bool see_tag_start_find(page_iterator_t &itr) {
-        // move itr to start of string "* {{see"
-        while (*itr != '\0') {
-            if (*itr == '{' && *(itr + 1) == '{' && *(itr + 2) == 's'
-                && *(itr + 3) == 'e' && *(itr + 4) == 'e') {
-                return true;
-            }
-            ++itr;
-        }
-        return false;
-    }
-
     static size_t find_see_tag_size(page_iterator_t itr) {
         size_t size = 1;
         while (*++itr != '}') ++size;
         return size;
+    }
+
+    static void clean_value(std::string &object) {
+        std::replace(object.begin(), object.end(), '\n', ' ');
+        std::replace(object.begin(), object.end(), '"', '\'');
     }
 };
 

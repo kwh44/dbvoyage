@@ -19,6 +19,8 @@ class Triple {
 public:
     explicit Triple(str &subj, str &pred, str &obj) : subject(subj), predicate(pred), object(obj) {}
 
+    explicit Triple(const str &subj, const str &pred, const str &obj) : subject(subj), predicate(pred), object(obj) {}
+
     explicit Triple(str &&subj, str &&pred, str &&obj) : subject(subj), predicate(pred), object(obj) {}
 
     Triple() = default;
@@ -27,9 +29,23 @@ public:
 
     Triple(Triple &) = default;
 
-    friend std::ofstream &operator<<(std::ofstream &output, const Triple &tr);
+    inline auto &get_subject() const { return subject; }
 
-    friend std::ostream &operator<<(std::ostream &output, const Triple &tr);
+    inline auto &get_predicate() const { return predicate; }
+
+    inline auto &get_object() const { return object; }
+
+    friend std::ofstream &operator<<(std::ofstream &, const Triple &);
+
+    friend std::ostream &operator<<(std::ostream &, const Triple &);
+
+    bool operator==(Triple &tr) {
+        return subject == tr.subject && object == tr.object && tr.predicate == tr.predicate;
+    }
+
+    bool operator==(Triple &&tr) {
+        return subject == tr.subject && object == tr.object && tr.predicate == tr.predicate;
+    }
 };
 
 std::ofstream &operator<<(std::ofstream &output, const Triple &tr) {
@@ -38,7 +54,7 @@ std::ofstream &operator<<(std::ofstream &output, const Triple &tr) {
 }
 
 std::ostream &operator<<(std::ostream &output, const Triple &tr) {
-    output << tr.subject << " " << tr.predicate << " " << tr.object  << " ." << std::endl;
+    output << tr.subject << " " << tr.predicate << " " << tr.object << " ." << std::endl;
     return output;
 }
 

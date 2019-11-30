@@ -18,10 +18,14 @@ public:
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
             if (PageNode::na_article(it)) continue;
+            if (PageNode::redirect_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
             std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
             std::string predicate("<http://xmlns.com/foaf/0.1/page>");
             std::string object("<https://wikivoyage.org/wiki/" + page_title + ">");
+            replace_url(subject, " ", "%20");
+            replace_url(predicate, " ", "%20");
+            replace_url(object, " ", "%20");
             create_statement(subject, predicate, object);
         }
     }

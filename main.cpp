@@ -11,6 +11,7 @@ int main(int argv, char *argc[]) {
     PageNode page_node(filename);
     ExtractionManager extraction(&page_node);
     extraction.start();
+    extraction.do_transitive_closure();
     extraction.serialize();
     return 0;
 }
