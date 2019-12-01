@@ -38,14 +38,6 @@ public:
     friend std::ofstream &operator<<(std::ofstream &, const Triple &);
 
     friend std::ostream &operator<<(std::ostream &, const Triple &);
-
-    bool operator==(Triple &tr) {
-        return subject == tr.subject && object == tr.object && tr.predicate == tr.predicate;
-    }
-
-    bool operator==(Triple &&tr) {
-        return subject == tr.subject && object == tr.object && tr.predicate == tr.predicate;
-    }
 };
 
 std::ofstream &operator<<(std::ofstream &output, const Triple &tr) {

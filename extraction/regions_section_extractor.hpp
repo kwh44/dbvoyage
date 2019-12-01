@@ -17,17 +17,13 @@ public:
         articles = pn;
         filename = "regions_section.nt";
     }
-    // somewhere it fucks all up
-    // Seychelles
-    // Vietnam
+
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
             if (PageNode::na_article(it)) continue;
             if (PageNode::redirect_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
-            if (page_title != "Seychelles") continue;
             auto page_text_itr = PageNode::get_text(it);
-
             while (start_find(page_text_itr, "{{Region")) {
                 auto tag_size = find_regions_tag_size(page_text_itr);
                 auto regions = get_region_names(std::string(page_text_itr, tag_size));
@@ -35,7 +31,6 @@ public:
                     std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
                     std::string predicate("<https://dbvoyage.org/ontology/property/hasRegion>");
                     std::string object("<https://dbvoyage.org/ontology/article/" + region + '>');
-                    std::cout << object << std::exit;
                     create_statement(subject, predicate, object);
                 }
                 ++page_text_itr;

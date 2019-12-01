@@ -24,7 +24,6 @@ public:
         extractors.emplace_back(std::make_shared<ArticleLinkExtractor>(page_node));
         extractors.emplace_back(std::make_shared<TitleExtractor>(page_node));
         extractors.emplace_back(std::make_shared<AbstractPageExtractor>(page_node));
-
         extractors.emplace_back(std::make_shared<SeeSectionExtractor>(page_node));
         extractors.emplace_back(std::make_shared<RegionsSectionExtractor>(page_node));
         extractors.emplace_back(std::make_shared<CitiesSectionExtractor>(page_node));
@@ -37,18 +36,17 @@ public:
     }
 
     void do_transitive_closure() {
-        std::cout << "Started transitive closure\n";
         std::vector<std::thread> threads;
         std::vector<Triple> c1;
-        // regions and attractions
+        // A hasregion B, B hasattraction C -> A hasattraction C
         threads.emplace_back(
                 [&] { transitive_closure(extractors[4]->get_triples(), extractors[3]->get_triples(), c1); });
         std::vector<Triple> c2;
-        // cities and attractions
+        // A hascity B, B hasattraction C -> A hasattraction C
         threads.emplace_back(
                 [&] { transitive_closure(extractors[5]->get_triples(), extractors[3]->get_triples(), c2); });
         std::vector<Triple> c3;
-        // regions, cities and attractions
+        // A hasregion B, B hascity C, C hasattraction D -> A hasattraction D
         threads.emplace_back([&] {
             transitive_closure(extractors[4]->get_triples(), extractors[5]->get_triples(), extractors[3]->get_triples(),
                                c3);
@@ -57,8 +55,6 @@ public:
         for (auto &v: c1) extractors[4]->get_triples().emplace_back(v);
         for (auto &v: c2) extractors[4]->get_triples().emplace_back(v);
         for (auto &v: c3) extractors[4]->get_triples().emplace_back(v);
-
-        std::cout << "Finished transitive closure\n";
     }
 
     void serialize() {

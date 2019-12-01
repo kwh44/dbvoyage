@@ -12,10 +12,12 @@ class WikiLinkExtractor: public Extractor {
 public:
     explicit WikiLinkExtractor(PageNode * pn) {
         articles = pn;
-        filename = "wiki_links.nt";
+        filename = "internal_links.nt";
     }
     // internal links between dbvoyage articles.
     // and represent them by using the wikilink property.
-    void extract() override {}
+    void extract() override {
+
+    }
 };
 #endif //DBVOYAGE_WIKI_LINK_EXTRACTOR_HPP

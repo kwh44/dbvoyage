@@ -39,8 +39,6 @@ private:
     static std::string get_abstract(page_iterator_t start) {
         auto next = start;
         bool previous_newline = false;
-        // std::cout << "Found start\n";
-        // std::cout << std::string(start, 30) << std::endl;
         while (*next != '\0') {
             if (*next == '\n') {
                 if (previous_newline) { break; }

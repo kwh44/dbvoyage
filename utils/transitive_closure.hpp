@@ -9,7 +9,7 @@
 #include <vector>
 
 void transitive_closure(std::vector<Triple> &c1, std::vector<Triple> &c2, std::vector<Triple> &out) {
-    // find statements where one-objects intersect with two-subjects
+    // find statements where c1-objects intersect with c2-subjects
     // for these statements form new statements
     // one-subject - two-predicate - two-object
     for (const auto &v: c1) {
@@ -24,7 +24,7 @@ void transitive_closure(std::vector<Triple> &c1, std::vector<Triple> &c2, std::v
 
 void transitive_closure(std::vector<Triple> &c1, std::vector<Triple> &c2, std::vector<Triple> &c3,
                         std::vector<Triple> &out) {
-    // find statements where one-objects intersect with two-subjects and two object intersect with three subjects
+    // find statements where c1-objects intersect with c2-subjects and c2 object intersect with c3 subjects
     // for these statements form new statements
     // one-subject - three-predicate - three-object
     std::vector<Triple> new_statements;

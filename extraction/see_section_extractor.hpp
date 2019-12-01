@@ -7,6 +7,7 @@
 
 #include "extractor_base.hpp"
 #include "../utils/listing_parameters.hpp"
+#include <boost/algorithm/string/trim.hpp>
 
 class SeeSectionExtractor : public Extractor {
 
@@ -29,21 +30,21 @@ public:
                 std::string attraction_name;
                 for (const auto &key: listing::keys) {
                     auto value = get_parameter_value(page_text_itr, see_tag_size, key);
-
                     clean_value(value);
                     if (value.empty() && key == "name") break;
                     if (value.empty()) continue;
                     std::string predicate;
                     if (key == "name") {
+                        boost::algorithm::trim(value);
                         attraction_name = "https://dbvoyage.org/ontology/attraction/" + value;
                         std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
                         predicate = "<https://dbvoyage.org/ontology/property/hasAttraction>";
-                        replace_url(attraction_name, " ", "%20");
-                        replace_url(attraction_name, "<", "$");
-                        replace_url(attraction_name, ">", "$");
-                        replace_url(attraction_name, "\\", "%20");
+                        replace_url(attraction_name, "<", "%3C");
+                        replace_url(attraction_name, ">", "%3E");
+                        replace_url(attraction_name, "\\", "%5C");
                         attraction_name.insert(0, "<");
                         attraction_name.push_back('>');
+                        replace_url(attraction_name, " ", "%20");
                         replace_url(subject, " ", "%20");
                         create_statement(subject, predicate, attraction_name);
                         predicate = "<https://dbvoyage.org/ontology/property/locatedAt>";
