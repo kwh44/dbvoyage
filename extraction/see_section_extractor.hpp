@@ -42,6 +42,7 @@ public:
                         replace_url(attraction_name, "<", "%3C");
                         replace_url(attraction_name, ">", "%3E");
                         replace_url(attraction_name, "\\", "%5C");
+                        replace_url(attraction_name, "'","%27");
                         attraction_name.insert(0, "<");
                         attraction_name.push_back('>');
                         replace_url(attraction_name, " ", "%20");
