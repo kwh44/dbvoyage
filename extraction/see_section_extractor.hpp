@@ -34,8 +34,8 @@ public:
                     if (value.empty() && key == "name") break;
                     if (value.empty()) continue;
                     std::string predicate;
+                    boost::algorithm::trim(value);
                     if (key == "name") {
-                        boost::algorithm::trim(value);
                         attraction_name = "https://dbvoyage.org/ontology/attraction/" + value;
                         std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
                         predicate = "<https://dbvoyage.org/ontology/property/hasAttraction>";
