@@ -55,8 +55,8 @@ public:
                         while (value[value.size() - 1] == ' ') value.erase(value.size() - 1, 1);
                         replace_url(value, " ", "%20");
                         replace_url(value, "\\", "/");
-                        replace_url(value, "<", "$");
-                        replace_url(value, ">", "$");
+                        replace_url(value, "<", "%3C");
+                        replace_url(value, ">", "%3E");
                         value.insert(0, "\"");
                         value.push_back('"');
                     } else {

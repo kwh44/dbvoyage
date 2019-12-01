@@ -10,10 +10,4 @@ fi
 
 mkdir build -p
 cd build && cmake .. && make -j4
-echo "Started extraction"
 ./main
-echo "Extraction finished"
-cd ..
-#echo "Started conversion .nt files charset from utf-8 to ascii"
-#./file_type_convert.py
-#echo "Finished conversion .nt files charset from utf-8 to ascii"

@@ -21,18 +21,19 @@ class ExtractionManager {
 public:
 
     explicit ExtractionManager(PageNode *page_node) {
-        extractors.emplace_back(std::make_shared<ArticleLinkExtractor>(page_node));
-        extractors.emplace_back(std::make_shared<TitleExtractor>(page_node));
-        extractors.emplace_back(std::make_shared<AbstractPageExtractor>(page_node));
-        extractors.emplace_back(std::make_shared<SeeSectionExtractor>(page_node));
-        extractors.emplace_back(std::make_shared<RegionsSectionExtractor>(page_node));
-        extractors.emplace_back(std::make_shared<CitiesSectionExtractor>(page_node));
+        extractors.emplace_back(std::make_shared<ArticleLinkExtractor>(page_node));  // virtuoso accepted
+        extractors.emplace_back(std::make_shared<TitleExtractor>(page_node));         // virtuoso accepted
+        extractors.emplace_back(std::make_shared<AbstractPageExtractor>(page_node));  // virtuoso accepted
+        extractors.emplace_back(std::make_shared<SeeSectionExtractor>(page_node));   // virtuoso accepted
+        extractors.emplace_back(std::make_shared<RegionsSectionExtractor>(page_node));   // virtuoso accepted
+        extractors.emplace_back(std::make_shared<CitiesSectionExtractor>(page_node));       // virtuoso accepted
     }
 
     void start() {
         std::vector<std::thread> threads;
         for (auto &extractor :extractors) threads.emplace_back(&Extractor::extract, extractor.get());
         for (auto &v: threads) v.join();
+        std::cout << "[ DONE ] extraction" << std::endl;
     }
 
     void do_transitive_closure() {
@@ -55,12 +56,14 @@ public:
         for (auto &v: c1) extractors[4]->get_triples().emplace_back(v);
         for (auto &v: c2) extractors[4]->get_triples().emplace_back(v);
         for (auto &v: c3) extractors[4]->get_triples().emplace_back(v);
+        std::cout << "[ DONE ] transitive closure" << std::endl;
     }
 
     void serialize() {
         std::vector<std::thread> threads;
         for (auto &extractor :extractors) threads.emplace_back(&Extractor::write_to_destination, extractor.get());
         for (auto &v: threads) v.join();
+        std::cout << "[ DONE ] serialization" << std::endl;
     }
 
 };
