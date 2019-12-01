@@ -29,11 +29,18 @@ public:
 
     Triple(Triple &) = default;
 
-    inline auto &get_subject() const { return subject; }
+    const str &cget_subject() const { return subject; }
 
-    inline auto &get_predicate() const { return predicate; }
+    const str &cget_predicate() const { return predicate; }
 
-    inline auto &get_object() const { return object; }
+    const str &cget_object() const { return object; }
+
+    str get_subject() const { return subject; }
+
+    str get_predicate() const { return predicate; }
+
+    str get_object() const { return object; }
+
 
     friend std::ofstream &operator<<(std::ofstream &, const Triple &);
 

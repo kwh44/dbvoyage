@@ -11,6 +11,7 @@
 #include "../utils/triple.hpp"
 #include "../utils/url_format.hpp"
 #include "../utils/clean_object.hpp"
+
 class Extractor {
 
 protected:
@@ -29,6 +30,8 @@ public:
     }
 
     auto &get_triples() { return statements; }
+
+    [[nodiscard]] const auto &cget_triples() const { return statements; }
 
     void create_statement(std::string &subj, std::string &pred, std::string &obj) {
         statements.emplace_back(Triple(subj, pred, obj));

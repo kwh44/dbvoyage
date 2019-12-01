@@ -39,23 +39,32 @@ public:
     void do_transitive_closure() {
         std::vector<std::thread> threads;
         std::vector<Triple> c1;
-        // A hasregion B, B hasattraction C -> A hasattraction C
+        // A has region B, B has attraction C -> A has attraction C
         threads.emplace_back(
-                [&] { transitive_closure(extractors[4]->get_triples(), extractors[3]->get_triples(), c1); });
+                [&] {
+                    transitive_closure(extractors[4]->cget_triples(), extractors[3]->cget_triples(), c1);
+                }
+        );
         std::vector<Triple> c2;
-        // A hascity B, B hasattraction C -> A hasattraction C
+        // A has city B, B has attraction C -> A has attraction C
         threads.emplace_back(
-                [&] { transitive_closure(extractors[5]->get_triples(), extractors[3]->get_triples(), c2); });
+                [&] {
+                    transitive_closure(extractors[5]->cget_triples(), extractors[3]->cget_triples(), c2);
+                }
+        );
         std::vector<Triple> c3;
-        // A hasregion B, B hascity C, C hasattraction D -> A hasattraction D
-        threads.emplace_back([&] {
-            transitive_closure(extractors[4]->get_triples(), extractors[5]->get_triples(), extractors[3]->get_triples(),
-                               c3);
-        });
+        // A has region B, B has city C, C has attraction D -> A has attraction D
+        threads.emplace_back(
+                [&] {
+                    transitive_closure(extractors[4]->cget_triples(), extractors[5]->cget_triples(),
+                                       extractors[3]->cget_triples(), c3);
+                }
+        );
         for (auto &v: threads) v.join();
-        for (auto &v: c1) extractors[4]->get_triples().emplace_back(v);
-        for (auto &v: c2) extractors[4]->get_triples().emplace_back(v);
-        for (auto &v: c3) extractors[4]->get_triples().emplace_back(v);
+
+        for (auto &v: c1) extractors[5]->get_triples().emplace_back(v);
+        for (auto &v: c2) extractors[5]->get_triples().emplace_back(v);
+        for (auto &v: c3) extractors[5]->get_triples().emplace_back(v);
         std::cout << "[ DONE ] transitive closure" << std::endl;
     }
 
