@@ -32,7 +32,6 @@ void transitive_closure(const std::vector<Triple> &c1, const std::vector<Triple>
     std::vector<Triple> new_statements;
     for (const auto &v: c1) {
         for (const auto &r: c2) {
-            if (r.cget_predicate() != "<https://dbvoyage.org/ontology/property/hasAttraction>") continue;
             if (v.cget_object() == r.cget_subject()) {
                 for (const auto &j: c3) {
                     if (r.cget_object() == j.cget_subject()) {
