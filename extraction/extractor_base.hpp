@@ -5,7 +5,7 @@
 #ifndef DBVOYAGE_EXTRACTOR_BASE_HPP
 #define DBVOYAGE_EXTRACTOR_BASE_HPP
 
-#include <vector>
+#include <set>
 #include <fstream>
 #include "../dump_parser/parser.hpp"
 #include "../utils/triple.hpp"
@@ -16,7 +16,7 @@ class Extractor {
 
 protected:
     std::string filename;
-    std::vector<Triple> statements;
+    std::set<Triple> statements;
     PageNode *articles = nullptr;
 
 public:
@@ -34,7 +34,7 @@ public:
     [[nodiscard]] const auto &cget_triples() const { return statements; }
 
     void create_statement(std::string &subj, std::string &pred, std::string &obj) {
-        statements.emplace_back(Triple(subj, pred, obj));
+        statements.emplace(subj, pred, obj);
     }
 
 };

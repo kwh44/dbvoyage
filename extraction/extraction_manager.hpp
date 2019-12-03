@@ -24,6 +24,7 @@ public:
         extractors.emplace_back(std::make_shared<ArticleLinkExtractor>(page_node));  // virtuoso accepted
         extractors.emplace_back(std::make_shared<TitleExtractor>(page_node));         // virtuoso accepted
         extractors.emplace_back(std::make_shared<AbstractPageExtractor>(page_node));  // virtuoso accepted
+
         extractors.emplace_back(std::make_shared<SeeSectionExtractor>(page_node));   // virtuoso accepted
         extractors.emplace_back(std::make_shared<RegionsSectionExtractor>(page_node));   // virtuoso accepted
         extractors.emplace_back(std::make_shared<CitiesSectionExtractor>(page_node));       // virtuoso accepted
@@ -37,34 +38,24 @@ public:
     }
 
     void do_transitive_closure() {
-        std::vector<std::thread> threads;
-        std::vector<Triple> c1;
-        // A has region B, B has attraction C -> A has attraction C
-        threads.emplace_back(
-                [&] {
-                    transitive_closure(extractors[4]->cget_triples(), extractors[3]->cget_triples(), c1);
-                }
-        );
-        std::vector<Triple> c2;
-        // A has city B, B has attraction C -> A has attraction C
-        threads.emplace_back(
-                [&] {
-                    transitive_closure(extractors[5]->cget_triples(), extractors[3]->cget_triples(), c2);
-                }
-        );
-        std::vector<Triple> c3;
-        // A has region B, B has city C, C has attraction D -> A has attraction D
-        threads.emplace_back(
-                [&] {
-                    transitive_closure(extractors[4]->cget_triples(), extractors[5]->cget_triples(),
-                                       extractors[3]->cget_triples(), c3);
-                }
-        );
-        for (auto &v: threads) v.join();
+        std::set<Triple> c1;
 
-        for (auto &v: c1) extractors[5]->get_triples().emplace_back(v);
-        for (auto &v: c2) extractors[5]->get_triples().emplace_back(v);
-        for (auto &v: c3) extractors[5]->get_triples().emplace_back(v);
+        // CityExtractor and SeeSection
+        transitive_closure(extractors[5]->cget_triples(), extractors[3]->cget_triples(), c1);
+        for (auto &v: c1) extractors[5]->get_triples().emplace(v);
+        c1.clear();
+
+        // RegionsExtractor and CityExtractor
+        transitive_closure(extractors[4]->cget_triples(), extractors[5]->cget_triples(), c1);
+        for (auto &v: c1) extractors[4]->get_triples().emplace(v);
+
+        // several rounds of RegionsExtractor and RegionExtractor
+        c1.clear();
+        for (int i = 0; i < 10; ++i) {
+            transitive_closure(extractors[4]->cget_triples(), extractors[4]->cget_triples(), c1);
+            for (auto &v: c1) extractors[4]->get_triples().emplace(v);
+            c1.clear();
+        }
         std::cout << "[ DONE ] transitive closure" << std::endl;
     }
 
