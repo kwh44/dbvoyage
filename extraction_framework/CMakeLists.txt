@@ -21,7 +21,8 @@ set(extraction
         extraction/see_section_extractor.hpp
         extraction/regions_section_extractor.hpp
         extraction/cities_section_extractor.hpp
-        extraction/wiki_link_extractor.hpp)
+        extraction/wiki_link_extractor.hpp
+        extraction/do_section_extractor.hpp)
 
 set(utils utils/triple.hpp
         utils/listing_parameters.hpp

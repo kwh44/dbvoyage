@@ -18,6 +18,7 @@ public:
     }
 
     // Extracts attractions from See section, enclosed in * {{see .. }}
+    // !TODO: also see info is enclosed in * {{listing | type=see .. }} -- add support for that
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
             if (PageNode::na_article(it)) continue;
