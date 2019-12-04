@@ -51,11 +51,14 @@ public:
 
         // several rounds of RegionsExtractor and RegionExtractor
         c1.clear();
+
         for (int i = 0; i < 10; ++i) {
+            std::cout << "Transitive closure round " << i << std::endl;
             transitive_closure(extractors[4]->cget_triples(), extractors[4]->cget_triples(), c1);
             for (auto &v: c1) extractors[4]->get_triples().emplace(v);
             c1.clear();
         }
+
         std::cout << "[ DONE ] transitive closure" << std::endl;
     }
 

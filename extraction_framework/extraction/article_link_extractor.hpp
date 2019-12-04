@@ -29,7 +29,6 @@ public:
             create_statement(subject, predicate, object);
         }
     }
-
 };
 
 

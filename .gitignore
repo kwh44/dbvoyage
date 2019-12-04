@@ -1,4 +1,4 @@
 .idea
 cmake-build-debug
-build
-dumps
+extraction_framework/build
+extraction_framework/dumps
