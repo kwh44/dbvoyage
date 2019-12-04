@@ -1,0 +1,26 @@
+{
+  "name": "dbvoyage_server",
+  "version": "1.0.0",
+  "description": "DBvoyage server",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwh44/dbvoyage.git"
+  },
+  "keywords": [
+    "dbvoyage",
+    "rdf",
+    "wikivoyage",
+    "N-Triples"
+  ],
+  "author": "Andrii Maistruk",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kwh44/dbvoyage/issues"
+  },
+  "homepage": "https://github.com/kwh44/dbvoyage#readme"
+}
