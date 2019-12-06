@@ -20,7 +20,7 @@ public:
             if (PageNode::na_article(it)) continue;
             if (PageNode::redirect_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
-            std::string subject("<http://dbvoyage.org/ontology/article/" + page_title + ">");
+            std::string subject('<' + graph + "/ontology/article/" + page_title + ">");
             std::string predicate("<http://www.w3.org/2000/01/rdf-schema#label>");
             std::string object("\"" + page_title + "\"");
             replace_url(subject, " ", "%20");

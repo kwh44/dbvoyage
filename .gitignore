@@ -3,3 +3,5 @@ cmake-build-debug
 extraction_framework/build
 extraction_framework/dumps
 extraction_framework/cmake-build-debug
+server/.idea
+server/node_modules

@@ -37,9 +37,9 @@ public:
                     std::string predicate;
                     boost::algorithm::trim(value);
                     if (key == "name") {
-                        attraction_name = "https://dbvoyage.org/ontology/attraction/" + value;
-                        std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
-                        predicate = "<https://dbvoyage.org/ontology/property/hasAttraction>";
+                        attraction_name = graph + "/ontology/attraction/" + value;
+                        std::string subject('<' + graph + "/ontology/article/" + page_title + ">");
+                        predicate = '<' + graph + "/ontology/property/hasAttraction>";
                         replace_url(attraction_name, "<", "%3C");
                         replace_url(attraction_name, ">", "%3E");
                         replace_url(attraction_name, "\\", "%5C");
@@ -49,10 +49,10 @@ public:
                         replace_url(attraction_name, " ", "%20");
                         replace_url(subject, " ", "%20");
                         create_statement(subject, predicate, attraction_name);
-                        predicate = "<https://dbvoyage.org/ontology/property/locatedAt>";
+                        predicate = '<' + graph + "/ontology/property/locatedAt>";
                         create_statement(attraction_name, predicate, subject);
                     }
-                    predicate = "<https://dbvoyage.org/ontology/property/" + key + ">";
+                    predicate = '<' + graph + "/ontology/property/" + key + ">";
                     if (key == "url") {
                         while (value[value.size() - 1] == ' ') value.erase(value.size() - 1, 1);
                         replace_url(value, " ", "%20");

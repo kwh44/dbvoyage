@@ -20,7 +20,7 @@ public:
             if (PageNode::na_article(it)) continue;
             if (PageNode::redirect_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
-            std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
+            std::string subject('<' + graph + "/ontology/article/" + page_title + ">");
             std::string predicate("<http://xmlns.com/foaf/0.1/page>");
             std::string object("<https://wikivoyage.org/wiki/" + page_title + ">");
             replace_url(subject, " ", "%20");

@@ -33,9 +33,9 @@ public:
                 boost::algorithm::trim(city_name);
                 clean_url(page_title);
                 clean_url(city_name);
-                std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
-                std::string predicate("<https://dbvoyage.org/ontology/property/hasCity>");
-                std::string object("<https://dbvoyage.org/ontology/article/" + city_name + '>');
+                std::string subject('<' + graph + "/ontology/article/" + page_title + ">");
+                std::string predicate('<' + graph + "/ontology/property/hasCity>");
+                std::string object('<' + graph + "/ontology/article/" + city_name + '>');
                 create_statement(subject, predicate, object);
             }
         }

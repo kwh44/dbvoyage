@@ -18,7 +18,7 @@ protected:
     std::string filename;
     std::set<Triple> statements;
     PageNode *articles = nullptr;
-
+    std::string graph{"http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com"};
 public:
 
     virtual void extract() {}

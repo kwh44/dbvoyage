@@ -42,9 +42,9 @@ public:
                     clean_url(region);
                     clean_url(page_title);
 
-                    std::string subject("<https://dbvoyage.org/ontology/article/" + page_title + ">");
-                    std::string predicate("<https://dbvoyage.org/ontology/property/hasRegion>");
-                    std::string object("<https://dbvoyage.org/ontology/article/" + region + '>');
+                    std::string subject('<' + graph + "/ontology/article/" + page_title + ">");
+                    std::string predicate('<' + graph + "/ontology/property/hasRegion>");
+                    std::string object('<' + graph + "/ontology/article/" + region + '>');
 
                     create_statement(subject, predicate, object);
 
