@@ -3,7 +3,7 @@ let fs = require("fs");
 let query_graph = require("./static/js/sparql_query");
 
 let server = new http.Server();
-const port_number = 8080;
+const port_number = 8081;
 server.listen(port_number, "127.0.0.1");
 
 server.on("request", function (req, res) {
