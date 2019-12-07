@@ -11,7 +11,7 @@
 namespace listing {
     std::vector<std::string> keys{"name", "alt", "address", "directions", "phone",
                                   "tollfree", "email", "fax", "url", "hours", "checkin", "checkout",
-                                  "wikidata", "wikipedia", "image", "price", "lat", "long", "content"};
+                                  "wikidata", "wikipedia", "image", "price", "lat", "long", "lastedit", "content"};
 }
 
 std::string get_parameter_value(page_iterator_t &itr, const size_t &size, const std::string &key) {
@@ -37,7 +37,7 @@ std::string get_parameter_value(page_iterator_t &itr, const size_t &size, const 
 }
 
 
-[[nodiscard]] static bool start_find(page_iterator_t &itr, std::string target) {
+[[nodiscard]] bool start_find(page_iterator_t &itr, std::string target) {
     // move itr to end of target string and return true
     size_t i = 0;
     while (*itr != '\0') {
@@ -47,6 +47,29 @@ std::string get_parameter_value(page_iterator_t &itr, const size_t &size, const 
         ++itr;
     }
     return false;
+}
+
+page_iterator_t find_tag(page_iterator_t itr, std::string &target) {
+    size_t i = 0;
+    while (*itr != '\0') {
+        if (*itr == target[i]) ++i;
+        else i = 0;
+        if (i == target.size()) return itr;
+        ++itr;
+    }
+    return nullptr;
+}
+
+
+size_t tag_size(page_iterator_t itr) {
+    size_t size = 1;
+    while (*++itr != '}') ++size;
+    return size;
+}
+
+void clean_value(std::string &object) {
+    std::replace(object.begin(), object.end(), '\n', ' ');
+    std::replace(object.begin(), object.end(), '"', '\'');
 }
 
 #endif //DBVOYAGE_LISTING_PARAMETERS_HPP

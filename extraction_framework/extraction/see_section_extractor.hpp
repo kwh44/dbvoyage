@@ -25,9 +25,9 @@ public:
             if (PageNode::redirect_article(it)) continue;
             std::string page_title(PageNode::get_page_title(it));
             auto page_text_itr = PageNode::get_text(it);
-            while (start_find(page_text_itr, "{{see")) {
+            while (find_see(page_text_itr)) {
                 // page_text_itr was moved to the start of '* {{see' tag
-                auto see_tag_size = find_see_tag_size(page_text_itr);
+                auto see_tag_size = tag_size(page_text_itr);
                 std::string attraction_name;
                 for (const auto &key: listing::keys) {
                     auto value = get_parameter_value(page_text_itr, see_tag_size, key);
@@ -43,7 +43,7 @@ public:
                         replace_url(attraction_name, "<", "%3C");
                         replace_url(attraction_name, ">", "%3E");
                         replace_url(attraction_name, "\\", "%5C");
-                        replace_url(attraction_name, "'","%27");
+                        replace_url(attraction_name, "'", "%27");
                         attraction_name.insert(0, "<");
                         attraction_name.push_back('>');
                         replace_url(attraction_name, " ", "%20");
@@ -74,16 +74,22 @@ public:
     }
 
 private:
-    static size_t find_see_tag_size(page_iterator_t itr) {
-        size_t size = 1;
-        while (*++itr != '}') ++size;
-        return size;
+
+    static bool find_see(page_iterator_t &itr) {
+        std::vector<page_iterator_t> tags;
+        std::vector<std::string> patterns{"{{see", "{{ see", "type = see", "type=see"};
+        for (auto &v: patterns) {
+            auto ptr = find_tag(itr, v);
+            if (ptr != nullptr) tags.emplace_back(ptr);
+        }
+        if (tags.empty()) return false;
+        else {
+            std::sort(tags.begin(), tags.end());
+            itr = tags[0];
+            return true;
+        }
     }
 
-    static void clean_value(std::string &object) {
-        std::replace(object.begin(), object.end(), '\n', ' ');
-        std::replace(object.begin(), object.end(), '"', '\'');
-    }
 };
 
 #endif //DBVOYAGE_SEE_SECTION_EXTRACTOR_HPP

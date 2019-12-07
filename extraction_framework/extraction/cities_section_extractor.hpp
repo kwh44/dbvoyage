@@ -45,7 +45,7 @@ private:
     static cities_list get_cities_list(page_iterator_t &itr) {
         auto list = std::make_shared<std::vector<std::string>>();
 
-        bool flag = start_find(itr, "type=city");
+        bool flag = find_city(itr);
 
         while (flag) {
 
@@ -63,6 +63,22 @@ private:
         }
         return list;
     }
+
+    static bool find_city(page_iterator_t &itr) {
+        std::vector<page_iterator_t> tags;
+        std::vector<std::string> patterns{"type=city", "type = city"};
+        for (auto &v: patterns) {
+            auto ptr = find_tag(itr, v);
+            if (ptr != nullptr) tags.emplace_back(ptr);
+        }
+        if (tags.empty()) return false;
+        else {
+            std::sort(tags.begin(), tags.end());
+            itr = tags[0];
+            return true;
+        }
+    }
+
 };
 
 #endif //DBVOYAGE_CITIES_SECTION_EXTRACTOR_HPP

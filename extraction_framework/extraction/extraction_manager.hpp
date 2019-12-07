@@ -22,12 +22,12 @@ class ExtractionManager {
 public:
 
     explicit ExtractionManager(PageNode *page_node) {
-        extractors.emplace_back(std::make_shared<ArticleLinkExtractor>(page_node));  // virtuoso accepted
-        extractors.emplace_back(std::make_shared<TitleExtractor>(page_node));         // virtuoso accepted
-        extractors.emplace_back(std::make_shared<AbstractPageExtractor>(page_node));  // virtuoso accepted
+        //extractors.emplace_back(std::make_shared<ArticleLinkExtractor>(page_node));  // virtuoso accepted
+        //extractors.emplace_back(std::make_shared<TitleExtractor>(page_node));         // virtuoso accepted
+        //extractors.emplace_back(std::make_shared<AbstractPageExtractor>(page_node));  // virtuoso accepted
         extractors.emplace_back(std::make_shared<SeeSectionExtractor>(page_node));   // virtuoso accepted
-        extractors.emplace_back(std::make_shared<RegionsSectionExtractor>(page_node));   // virtuoso accepted
-        extractors.emplace_back(std::make_shared<CitiesSectionExtractor>(page_node));       // virtuoso accepted
+        //extractors.emplace_back(std::make_shared<RegionsSectionExtractor>(page_node));   // virtuoso accepted
+        //extractors.emplace_back(std::make_shared<CitiesSectionExtractor>(page_node));       // virtuoso accepted
         extractors.emplace_back(std::make_shared<DoSectionExtractor>(page_node));
     }
 
