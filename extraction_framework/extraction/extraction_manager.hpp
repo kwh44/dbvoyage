@@ -88,7 +88,6 @@ public:
 
         workers.emplace_back([&] {
             for (int i = 0; i < 10; ++i) {
-                std::cout << "Transitive closure of Regions & Cities & See statements round " << i << std::endl;
                 transitive_closure(extractors[4]->cget_triples(), extractors[4]->cget_triples(), c1);
                 for (auto &v: c1) extractors[4]->get_triples().emplace(v);
                 c1.clear();
@@ -97,7 +96,6 @@ public:
 
         workers.emplace_back([&] {
             for (int i = 0; i < 10; ++i) {
-                std::cout << "Transitive closure of Regions & Cities & Do statements round " << i << std::endl;
                 transitive_closure(regions_copy, regions_copy, c2);
                 for (auto &v: c2) regions_copy.emplace(v);
                 c2.clear();
