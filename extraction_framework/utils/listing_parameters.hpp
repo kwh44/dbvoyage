@@ -36,7 +36,6 @@ std::string get_parameter_value(page_iterator_t &itr, const size_t &size, const 
     return value;
 }
 
-
 [[nodiscard]] bool start_find(page_iterator_t &itr, std::string target) {
     // move itr to end of target string and return true
     size_t i = 0;
@@ -59,7 +58,6 @@ page_iterator_t find_tag(page_iterator_t itr, std::string &target) {
     }
     return nullptr;
 }
-
 
 size_t tag_size(page_iterator_t itr) {
     size_t size = 1;

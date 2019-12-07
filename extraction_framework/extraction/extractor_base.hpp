@@ -23,7 +23,6 @@ public:
 
     virtual void extract() {}
 
-
     void write_to_destination() {
         std::ofstream destination(filename);
         for (const auto &statement: statements) { destination << statement; }

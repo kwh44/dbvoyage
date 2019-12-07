@@ -17,8 +17,6 @@ public:
         filename = "see_section.nt";
     }
 
-    // Extracts attractions from See section, enclosed in * {{see .. }}
-    // !TODO: also see info is enclosed in * {{listing | type=see .. }} -- add support for that
     void extract() override {
         for (auto it = articles->begin(); it != PageNode::end(); ++it) {
             if (PageNode::na_article(it)) continue;
@@ -26,7 +24,6 @@ public:
             std::string page_title(PageNode::get_page_title(it));
             auto page_text_itr = PageNode::get_text(it);
             while (find_see(page_text_itr)) {
-                // page_text_itr was moved to the start of '* {{see' tag
                 auto see_tag_size = tag_size(page_text_itr);
                 std::string attraction_name;
                 for (const auto &key: listing::keys) {

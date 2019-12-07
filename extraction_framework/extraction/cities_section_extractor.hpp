@@ -44,22 +44,17 @@ public:
 private:
     static cities_list get_cities_list(page_iterator_t &itr) {
         auto list = std::make_shared<std::vector<std::string>>();
-
         bool flag = find_city(itr);
-
         while (flag) {
-
             while (*itr != '[') ++itr;
-
             auto end = itr;
             while (*end != ']') ++end;
-
-            std::string city_name(itr+2, end);
-
+            std::string city_name(itr + 2, end);
+            auto pos = city_name.find('|');
+            if (pos != std::string::npos) city_name = city_name.substr(0, pos);
             list->emplace_back(city_name);
-
             ++itr;
-            flag = start_find(itr, "type=city");
+            flag = find_city(itr);
         }
         return list;
     }
@@ -78,7 +73,6 @@ private:
             return true;
         }
     }
-
 };
 
 #endif //DBVOYAGE_CITIES_SECTION_EXTRACTOR_HPP

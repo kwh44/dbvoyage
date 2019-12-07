@@ -9,4 +9,5 @@ DB.DBA.TTLP_MT (file_to_string_output ('/usr/share/virtuoso-opensource-6.1/vad/c
 DB.DBA.TTLP_MT (file_to_string_output ('/usr/share/virtuoso-opensource-6.1/vad/labels_en.nt'), '', $graph);\
 DB.DBA.TTLP_MT (file_to_string_output ('/usr/share/virtuoso-opensource-6.1/vad/regions_section.nt'), '', $graph);\
 DB.DBA.TTLP_MT (file_to_string_output ('/usr/share/virtuoso-opensource-6.1/vad/see_section.nt'), '', $graph);\
+DB.DBA.TTLP_MT (file_to_string_output ('/usr/share/virtuoso-opensource-6.1/vad/do_section.nt'), '', $graph);\
 DB.DBA.TTLP_MT (file_to_string_output ('/usr/share/virtuoso-opensource-6.1/vad/wikivoyage_links_en.nt'), '', $graph);"
