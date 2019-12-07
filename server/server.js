@@ -16,7 +16,7 @@ server.on("request", function (req, res) {
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 let file = new fs.ReadStream('static/routes/sparql.html');
                 sendFile(file, res);
-            } else if (req.url === "/sparql" && req.method === "POST") {
+            } else if ((req.url === "/sparql" && req.method === "POST")) {
                 let query = '';
                 req.on('data', data => {
                     query.concat(data);
@@ -25,22 +25,11 @@ server.on("request", function (req, res) {
                     query = decodeURIComponent(query.substr(6, query.length - 6));
                     query = query.replace(/\+/g, " ").replace(/ {2}/g, " ");
                     console.log(query);
-                    query_graph(query).then(res => res.text()).then(html => {
-                        if (html.substr(1, 5) === "table") {
-                            res.writeHead(200, {'Content-Type': 'text/html'});
-                            res.write("<html><body>" + html + "</body></html>");
-                            res.end();
-                        } else {
-                            res.writeHead(200, {'Content-Type': 'text/html'});
-                            let file = new fs.ReadStream('static/routes/invalid_query.html');
-                            sendFile(file, res);
-                        }
-                    });
+                    process_query(query, res);
                 });
             } else {
-                // try to do sparql query with url
-                // select ?predicate ?object where {url ?predicate ?value}
-                // return resulting query result
+                let query = "select ?predicate ?object where { <" + req.url + "> ?predicate ?object}";
+                process_query(query, res);
             }
         }
     }
@@ -54,6 +43,20 @@ let sendFile = (file, res) => {
     });
     res.on('close', function () {
         file.destroy();
+    });
+};
+
+let process_query = (query, res) => {
+    query_graph(query).then(res => res.text()).then(html => {
+        if (html.substr(1, 5) === "table") {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write("<html lang=\"en\"><body>" + html + "</body></html>");
+            res.end();
+        } else {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            let file = new fs.ReadStream('static/routes/invalid_query.html');
+            sendFile(file, res);
+        }
     });
 };
 
