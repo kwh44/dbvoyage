@@ -58,12 +58,11 @@ server.on("request", function (req, res) {
             } else if ((req.url === "/sparql" && req.method === "POST")) {
                 let query = '';
                 req.on('data', data => {
-                    query.concat(data);
+                    query += data;
                 });
                 req.on('end', function () {
                     query = decodeURIComponent(query.substr(6, query.length - 6));
                     query = query.replace(/\+/g, " ").replace(/ {2}/g, " ");
-                    console.log(query);
                     process_query(query, res);
                 });
             } else {
