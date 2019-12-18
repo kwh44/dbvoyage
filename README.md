@@ -1,6 +1,6 @@
 <h3>DBvoyage<h3>
 <h4>The software used to extract structured data from Wikivoyage</h4>
-![desc](images/desc.png)
+<img src="/images/desc.png">
 
 <h5>Extraction Framework</h5>
 <p>Six extractors are written</p>
