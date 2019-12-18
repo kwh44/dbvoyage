@@ -1,7 +1,6 @@
-###DBvoyage
-
+<h2>DBvoyage<h2>
 <h4>The software used to extract structured data from Wikivoyage</h4>
-![DBvoyage Architecture](/home/kwh44/Pictures/desc.png)
+![DBvoyage Architecture](https://drive.google.com/open?id=1QMRbLJJ2BbdQubhVhfhJiF9ezJhPKWY6)
 
 <h5>Extraction Framework</h5>
 <p>Six extractors are written</p>
@@ -25,7 +24,7 @@ examples and link to editor for writing SPARQL queries over dbvoyage graph.</p>
 <h5>The server is running and available by the following link
 <a href="http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/">DBvoyage</a></h5>
 <p>View all info DBvoyage has about
-<a href="ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/attraction/Lviv Opera and Ballet National Academic Theatre">
+<a href="http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/attraction/Lviv Opera and Ballet National Academic Theatre">
 Lviv Opera and Ballet National Academic Theatre</a>
 </p>
 <p>In order to view all attractions DBvoyage knows are located in Ukraine:<br/>
