@@ -7,8 +7,9 @@
 <body>
 <header><h3>Sparql query</h3></header>
 <main>
-<form action="/sparql" method="post">
-    Query: <input type="text" name="query"><br>
+<form id="fm" action="/sparql" method="post">
+    <textarea rows="25" cols="150" name="query" form="fm"></textarea>
+    <br/>
     <input type="submit" value="Submit">
 </form>
 </main>
