@@ -73,9 +73,10 @@ where
 ```
 
 ### Known issues
-* Needs large amount of time to compute partial transitive closure of DBvoyage. In essence it tries to create the relation between node A and node C, if node C is reachable from A by going through 
-no more that n intermediate nodes, for example: France has Paris, Paris has Eiffel Tower, therefore we need to create the connection between node France and node Eiffel Tower, but this task becomes more compute-heavy when the number of intermediate nodes goes from one to five or ten, for such task no better than O(n^3) algorithm exists. 
-Optimization of this task would greatly improve the time needed to update existing nodes and connections between them in case of the arrival of new article about a country/city/place.
+* It needs a significant amount of time to compute the partial transitive closure of DBvoyage. In essence, it tries to create the relation between node A and node C, if node C is reachable from A by going through no more than n intermediate nodes. For example, France has Paris, Paris has Eiffel Tower; therefore we need to create the connection between node France and node Eiffel Tower, but this task becomes more compute-heavy when the number of intermediate nodes goes from one to five or ten, for such task no better than O(n^3) algorithm exists. 
+  Optimization of this task would significantly improve the time needed to update existing nodes and connections between them in case of the publication of the article about a new country/city/place.
+* For some section of JSON listings the article writers made it very hard to develop the extractor that generalizes for all articles: 
+  unknowable usage of the tabs, different ways of formatting the tabular information and URLs, and other cases of deviating from the Wikivoyage JSON listing format were making Virtuoso complain about the triples not conforming to any of the known RDF serialization standards. 
    
 ### Results
 The current version of DBvoyage managed to extract
