@@ -20,18 +20,14 @@ has some structure, so we would be happy that our task is almost done, but that 
 the surface. The data wikivoyage has semi-structured; it is formed in accord with
 what they call it, JSON listing, and as it was discovered, not all contributors strictly follow it.
 So here we propose our solution -- DBvoyage.
-The current version of DBvoyage managed to extract
-1 688 488 [semantic triples](https://en.wikipedia.org/wiki/Semantic_triple). 
-In compressed form, all the data has a size of 38.5 MB.
-The link to download DBvoyage compressed dump: [dbvoyage.zip](https://drive.google.com/uc?export=download&id=167jzm3NpXkNxOIAxloy8goYDmes5knIh)
 
-### How User Interacts
+### How user interacts
 ![uset interaction](/images/interact.png)
 With DBvoyage user interacts,
 making SPARQL queries or directly referencing URL node in DBvoyage graph  
 to view all triples it has.
 
-### Examples Of Queries And Responses 
+### Examples of queries and responses 
 ![query1](/images/query1.png)
 ![response1](/images/response1.png)
 Also all Wikivoyage information about activities and attractions is present in the DBvoyage graph and can be referenced with URL found in the response.
@@ -41,12 +37,11 @@ Example for activity in Aarhus: Bicycle Tour
 Example for attraction in Aarhus: ARoS
 ![aros](/images/aros.png)
 
-### Architecture Overview
+### Architecture overview
 ![description](/images/desc.png)
 
-#### Extraction Framework
+#### Extraction framework
 ##### Six extractors are written
-
 * See section
 * Do section
 * Article abstract
@@ -54,13 +49,12 @@ Example for attraction in Aarhus: ARoS
 * Region section
 * Article title
 * Wikivoyage article link
-
 They process all data from wikivoyage XML dump. Next step is transitive closure of
 graph from created triples, with at most 12 inner vertices in path. The final step
 is serialization of triples in N-Triples format.
-#### Virtuoso Server
+#### Virtuoso server
 All triples are loaded to the graph over which SPARQL queries can be executed.
-#### HTTP Server
+#### HTTP server
 Basic nodejs server providing interface with project information, SPARQL queries
 examples and link to editor for writing SPARQL queries over dbvoyage graph.  
 ### SPARQL query snippet
@@ -77,6 +71,21 @@ where
     ?attractions
 }
 ```
+
+### Known issues
+* Needs large amount of time to compute partial transitive closure of DBvoyage. In essence it tries to create the relation between node A and node C, if node C is reachable from A by going through 
+no more that n intermediate nodes, for example: France has Paris, Paris has Eiffel Tower, therefore we need to 
+create the connection between node France and node Eiffel Tower, but this task becomes more compute-heavy when  
+the number of intermediate nodes goes from one to five or ten, for such task no better than O(n^3) algorithm exists. 
+Optimization of this task would greatly improve the time needed to update existing nodes and connections between them in case of the arrival of new article about a country/city/place.
+   
+### Results
+The current version of DBvoyage managed to extract
+1 688 488 [semantic triples](https://en.wikipedia.org/wiki/Semantic_triple). 
+In compressed form, all the data has a size of 38.5 MB.
+The link to download DBvoyage compressed dump: [dbvoyage.zip](https://drive.google.com/uc?export=download&id=167jzm3NpXkNxOIAxloy8goYDmes5knIh)
+
+
 
 ### Next steps
 * UI/UX of the DBvoyage can be improved: design of homepage, SPARQL editor and SPARQL response page
