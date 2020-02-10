@@ -28,7 +28,8 @@ The link to download DBvoyage compressed dump: [dbvoyage.zip](https://drive.goog
 ### How User Interacts
 ![uset interaction](/images/interact.png)
 With DBvoyage user interacts,
-making SPARQL queries or directly referencing URL node in DBvoyage graph to view all triples it has.
+making SPARQL queries or directly referencing URL node in DBvoyage graph  
+to view all triples it has.
 
 ### Examples Of Queries And Responses 
 ![query1](/images/query1.png)
@@ -37,6 +38,7 @@ Also all Wikivoyage information about activities and attractions is present in t
 ![node_info](/images/url_node.png)
 Example for activity in Aarhus: Bicycle Tour
 ![bicycle_tour](/images/aarhus_bicycle.png)
+Example for attraction in Aarhus: ARoS
 ![aros](/images/aros.png)
 
 ### Architecture Overview
@@ -60,11 +62,8 @@ is serialization of triples in N-Triples format.
 All triples are loaded to the graph over which SPARQL queries can be executed.
 #### HTTP Server
 Basic nodejs server providing interface with project information, SPARQL queries
-examples and link to editor for writing SPARQL queries over dbvoyage graph.
-##### The server is running and available at [DBvoyage](http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/")
-View all info DBvoyage has about
-[Lviv Opera and Ballet National Academic Theatre](http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/attraction/Lviv%20Opera%20and%20Ballet%20National%20Academic%20Theatre)
-
+examples and link to editor for writing SPARQL queries over dbvoyage graph.  
+### SPARQL query snippet
 In order to view all attractions DBvoyage knows are located in Ukraine:
 Go to  [SPARQL Editor](http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/sparql)
 and write the following query
@@ -73,9 +72,18 @@ select
     ?attractions
 where
 {
-<http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/article/Ukraine>
-<http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/property/hasAttraction>
-?attractions
+    <http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/article/Ukraine>
+    <http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/property/hasAttraction>
+    ?attractions
 }
 ```
 
+### Next steps
+* UI/UX of the DBvoyage can be improved: design of homepage, SPARQL editor and SPARQL response page
+* Improvement of the quality of existing extractors
+* Addition of the extractors for other sections of wikivoyage JSON listings
+* Improvement of the relevance of the connections between the graph vertices created by running transitive closure
+* Optimization of the time needed for running transitive closure on the DBvoyage graph
+
+### How you can contribute
+Feel free to create pull requests with any tasks accomplished related to the steps described above.  
