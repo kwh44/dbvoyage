@@ -48,7 +48,8 @@ Example for attraction in Aarhus: ARoS
 * Cities section
 * Region section
 * Article title
-* Wikivoyage article link
+* Wikivoyage article link  
+
 They process all data from wikivoyage XML dump. Next step is transitive closure of
 graph from created triples, with at most 12 inner vertices in path. The final step
 is serialization of triples in N-Triples format.
