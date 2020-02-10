@@ -74,9 +74,7 @@ where
 
 ### Known issues
 * Needs large amount of time to compute partial transitive closure of DBvoyage. In essence it tries to create the relation between node A and node C, if node C is reachable from A by going through 
-no more that n intermediate nodes, for example: France has Paris, Paris has Eiffel Tower, therefore we need to 
-create the connection between node France and node Eiffel Tower, but this task becomes more compute-heavy when  
-the number of intermediate nodes goes from one to five or ten, for such task no better than O(n^3) algorithm exists. 
+no more that n intermediate nodes, for example: France has Paris, Paris has Eiffel Tower, therefore we need to create the connection between node France and node Eiffel Tower, but this task becomes more compute-heavy when the number of intermediate nodes goes from one to five or ten, for such task no better than O(n^3) algorithm exists. 
 Optimization of this task would greatly improve the time needed to update existing nodes and connections between them in case of the arrival of new article about a country/city/place.
    
 ### Results
