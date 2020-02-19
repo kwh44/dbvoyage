@@ -15,9 +15,9 @@ Wikipedia more structured and to put in such a form that even more complex queri
 be answered quickly by the machine.  
 ### Mission & Project goal
 The DBvoyage project tries to do the same what DBpedia did, but this time with
-another source of data, travel data taken from wikivoyage. Wikivoyage data format already
+another source of data, travel data taken from Wikivoyage. Wikivoyage data format already
 has some structure, so we would be happy that our task is almost done, but that is only on
-the surface. The data wikivoyage has semi-structured; it is formed in accord with
+the surface. The data Wikivoyage has semi-structured; it is formed in accord with
 what they call it, JSON listing, and as it was discovered, not all contributors strictly follow it.
 So here we propose our solution -- DBvoyage.
 
@@ -50,7 +50,7 @@ Example for attraction in Aarhus: ARoS
 * Article title
 * Wikivoyage article link  
 
-They process all data from wikivoyage XML dump. Next step is transitive closure of
+They process all data from Wikivoyage XML dump. Next step is transitive closure of
 graph from created triples, with at most 12 inner vertices in path. The final step
 is serialization of triples in N-Triples format.
 #### Virtuoso server
@@ -90,7 +90,7 @@ The link to download DBvoyage compressed dump: [dbvoyage.zip](https://drive.goog
 ### Next steps
 * UI/UX of the DBvoyage can be improved: design of homepage, SPARQL editor and SPARQL response page
 * Improvement of the quality of existing extractors
-* Addition of the extractors for other sections of wikivoyage JSON listings
+* Addition of the extractors for other sections of Wikivoyage JSON listings
 * Improvement of the relevance of the connections between the graph vertices created by running transitive closure
 * Optimization of the time needed for running transitive closure on the DBvoyage graph
 
