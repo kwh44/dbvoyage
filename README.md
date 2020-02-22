@@ -83,7 +83,7 @@ where
 The current version of DBvoyage managed to extract
 1 688 488 [semantic triples](https://en.wikipedia.org/wiki/Semantic_triple). 
 In compressed form, all the data has a size of 38.5 MB.
-The link to download DBvoyage compressed dump: [dbvoyage.zip](https://drive.google.com/uc?export=download&id=167jzm3NpXkNxOIAxloy8goYDmes5knIh)
+The link to download DBvoyage compressed dump: [dbvoyage.zip](https://drive.google.com/file/d/1iq4DgLlpUsRFLivyTZRv9LjHf9BwkCrl/view?usp=sharing)
 
 
 
