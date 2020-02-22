@@ -67,8 +67,8 @@ select
     ?attractions
 where
 {
-    <http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/article/Ukraine>
-    <http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/ontology/property/hasAttraction>
+    <http://ec2-13-59-194-238.us-east-2.compute.amazonaws.com/ontology/article/Ukraine>
+    <http://ec2-13-59-194-238.us-east-2.compute.amazonaws.com/ontology/property/hasAttraction>
     ?attractions
 }
 ```
