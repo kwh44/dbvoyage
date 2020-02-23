@@ -60,7 +60,7 @@ Basic nodejs server providing interface with project information, SPARQL queries
 examples and link to editor for writing SPARQL queries over dbvoyage graph.  
 ### SPARQL query snippet
 In order to view all attractions DBvoyage knows are located in Ukraine:
-Go to  [SPARQL Editor](http://ec2-52-15-243-121.us-east-2.compute.amazonaws.com/sparql)
+Go to  [SPARQL Editor](http://ec2-13-59-194-238.us-east-2.compute.amazonaws.com/sparql)
 and write the following query
 ```sql
 select
